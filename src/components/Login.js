@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { userLoginFetch } from '../containers/login';
 
-class Login extends React.Component {
 
+class Login extends Component {
     constructor(props) {
         super(props);
-        //Khởi tạo state chứa giá trị của input
         this.state = {
             email: "",
             password: ""
@@ -23,19 +24,18 @@ class Login extends React.Component {
             msg: ''
         }
         const { email, password } = this.state
-        //Kiểm tra email
         const re = /\S+@\S+\.\S+/;
         if (!re.test(email)) {
             returnData = {
                 error: true,
-                msg: 'Không đúng định dạng email'
+                msg: 'Invalid email'
             }
         }
-        //Kiểm tra password
+
         if (password.length < 8) {
             returnData = {
                 error: true,
-                msg: 'Mật khẩu phải lớn hơn 8 ký tự'
+                msg: 'Password more than 8 character!'
             }
         }
         return returnData;
@@ -43,13 +43,14 @@ class Login extends React.Component {
 
     submitForm(e) {
         e.preventDefault();
+
         const validation = this.validationForm()
         if (validation.error) {
-          alert(validation.msg)
-        }else{
-          alert('Submit form success')
+            alert(validation.msg)
+        } else {
+            alert('Submit form success')
         }
-      }
+    }
 
     render() {
         return (
@@ -85,12 +86,16 @@ class Login extends React.Component {
                         </div>
                         <button type="submit" className="btn btn-primary">
                             Login
-                        </button>
+                    </button>
                     </form>
                 </div>
             </div>
-        );
+        )
     }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+    userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+})
+
+export default connect(null, mapDispatchToProps)(Login);

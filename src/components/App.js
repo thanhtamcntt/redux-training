@@ -1,24 +1,43 @@
 import React, { Component } from 'react';
 import './App.css';
-import FoodContainer from '../containers/food-list'
-import FoodDetailContainer from '../containers/food-detail';
+import { Router, Switch, Route, Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { history } from '../helpers/history';
+import Home from './Home';
+import Login from './Login';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-            <h2>Welcome to React with Redux project</h2>
+
+      <Router history={history}>
+        <div>
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <Link to="/" className="navbar-brand">
+              Nikoken
+            </Link>
+            <div className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to="/" className="nav-link">
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
+                  </Link>
+              </li>
+            </div>
+          </nav>
+
+          <div className="container mt-3">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
+          </div>
         </div>
-        <p className="App-intro">
-          <p>This is a tutorial React app with Redux</p>
-        </p>
-        <h2>List of foods: </h2>
-        <FoodContainer />
-        <hr />
-        <h2>Food details: </h2>
-        <FoodDetailContainer />
-      </div>
+      </Router>
     );
   }
 }

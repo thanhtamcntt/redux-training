@@ -4,13 +4,15 @@
 import FoodReducer from './foods-reducer';
 import UserReducer from './users-reducer';
 import ActiveFoodReducer from './active-food-reducer';
+import authReducer from "./auth";
 
 import {combineReducers} from 'redux';
 
 const allReducers = combineReducers({
     foods: FoodReducer,
     users: UserReducer,
-    activeFood: ActiveFoodReducer
+    activeFood: ActiveFoodReducer,
+    auth: authReducer
 });
 
 export default allReducers;
